@@ -27,7 +27,7 @@ class Post(models.Model):
     date_creation=models.DateField(auto_now_add=True)
     mis_a_jour=models.DateField(auto_now=True)
     status=models.CharField(choices=STATUS_ChOICES,default='draft',max_length=200)
-    date_publication=models.DateField(default=timezone.now())
+    date_publication=models.DateField(default=timezone.now)
     auteur=models.ForeignKey(User,on_delete=models.CASCADE)
     category=models.ForeignKey(Category,on_delete=models.CASCADE,related_name='category_posts')
     image=models.ImageField(upload_to='media',default='logo.png')

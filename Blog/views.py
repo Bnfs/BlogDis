@@ -33,7 +33,7 @@ def home(request,category=None):
         'categories':categories,
         'category':category,
     }
-    return render(request,"Blog/index.html",{'post':post,})
+    return render(request,"Blog/index.html",context)
 
 def search(request):
     query=request.GET.get('query')
@@ -58,10 +58,12 @@ def search(request):
         }
         return render(request,'Blog/search.html',context)
 def searchbar(request):
-    if request.method == 'GET':
-        search=request.GET.get('query')
-        post=Post.objects.filter(titre__icontains= search)
-    return render(request,'Blog/search.html',{'post':post,})
+    search=request.GET.get('query')
+    if search:
+        post=Post.published.filter(titre__icontains=search)
+    else:
+        post=Post.published.none()
+    return render(request,'Blog/search.html',{'post':post,'query':search,})
 
 def contact(request):
     if request.method=='POST':
