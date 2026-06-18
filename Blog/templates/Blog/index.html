@@ -8,7 +8,7 @@ Accueil
     <hr class="tm-hr-primary">
     <a href="{% url 'detail' article.slug %}" class="effect-lily tm-post-link tm-pt-60">
         <div class="tm-post-link-inner">
-            <img src="{{ article.image.url }}" alt="Image" class="img-fluid-post">                            
+            <img src="{{ article.image.url }}" alt="{{ article.titre }}" class="img-fluid-post" loading="lazy">
         </div>
         <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ article.titre|truncatechars:30 }}</h2>
     </a>                    

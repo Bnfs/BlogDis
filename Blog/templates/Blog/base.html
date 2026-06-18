@@ -10,6 +10,14 @@
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
     <link href="{% static 'Blog/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'Blog/css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+    <link href="{% static 'Blog/css/modern.css' %}" rel="stylesheet">
+    <script>
+        // Applique le theme enregistre avant le rendu (evite le clignotement)
+        (function () {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        })();
+    </script>
 <!--
     
 TemplateMo 553 Xtra Blog
@@ -25,8 +33,9 @@ https://templatemo.com/tm-553-xtra-blog
                 <i class="fas fa-bars"></i>
             </button>
             <div class="tm-site-header">
-                <div class=""><img src="{% static 'Blog/img/logo1.JPG' %}" alt="logo" class="img-responsive mb-3 mx-auto tm-site-logo"></div>            
+                <div class=""><img src="{% static 'Blog/img/logo1.JPG' %}" alt="Logo Amaba Discovery Zone" class="img-responsive mb-3 mx-auto tm-site-logo"></div>
                 <h2 class="text-center">Amaba Discovery Zone</h2>
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Basculer le mode sombre">🌙 Mode sombre</button>
             </div>
             <nav class="tm-nav navbar navbar-expand-lg bg-body-tertiary" id="tm-nav">            
                 <ul>
@@ -123,5 +132,28 @@ https://templatemo.com/tm-553-xtra-blog
     </div>
     <script src="{% static 'blog/js/jquery.min.js'%}"></script>
     <script src="{% static 'blog/js/templatemo-script.js' %}"></script>
+    <script>
+        // Bascule clair / sombre (JavaScript pur, sans jQuery)
+        (function () {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            function refreshLabel() {
+                var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+                btn.textContent = dark ? '☀️ Mode clair' : '🌙 Mode sombre';
+            }
+            refreshLabel();
+            btn.addEventListener('click', function () {
+                var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (dark) {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+                refreshLabel();
+            });
+        })();
+    </script>
 </body>
 </html>
