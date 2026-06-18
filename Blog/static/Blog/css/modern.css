@@ -1,15 +1,22 @@
 /* ============================================================
-   modern.css — Ameliorations modernes ajoutees par-dessus le
-   template TemplateMo Xtra Blog (sans toucher au fichier d'origine).
+   modern.css — Couche de modernisation par-dessus le template
+   TemplateMo Xtra Blog. Garde l'identite (bleu nuit + teal) mais
+   apporte un rendu contemporain : typographie, cartes, ombres,
+   boutons arrondis, transitions, mode sombre.
    ============================================================ */
 
 /* ---- Variables de theme (clair par defaut) ---- */
 :root {
-    --bg-page: #ffffff;
+    --bg-page: #f4f5f7;
     --bg-card: #ffffff;
-    --text-main: #212529;
-    --text-muted: #6c757d;
+    --text-main: #1f2333;
+    --text-muted: #6b7280;
+    --navy: #0e082f;
     --accent: #099;
+    --accent-soft: #09b6b6;
+    --radius: 14px;
+    --shadow: 0 6px 24px rgba(16, 24, 40, 0.08);
+    --shadow-hover: 0 14px 36px rgba(16, 24, 40, 0.16);
     --transition: 0.25s ease;
 }
 
@@ -19,60 +26,148 @@
     --bg-card: #211d33;
     --text-main: #e6e6e6;
     --text-muted: #a8a3bd;
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+    --shadow-hover: 0 14px 36px rgba(0, 0, 0, 0.6);
 }
 
-[data-theme="dark"] body,
-[data-theme="dark"] .tm-main {
+/* ---- Typographie moderne ---- */
+body {
+    font-family: 'Poppins', 'Source Sans Pro', system-ui, -apple-system, sans-serif;
     background-color: var(--bg-page) !important;
     color: var(--text-main);
+    line-height: 1.7;
+    letter-spacing: 0.1px;
 }
+h1, h2, h3, .tm-post-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+}
+.tm-main { background-color: var(--bg-page) !important; }
 
-[data-theme="dark"] .tm-post,
-[data-theme="dark"] .tm-post-full,
-[data-theme="dark"] .tm-post-sidebar,
-[data-theme="dark"] .tm-comment {
+/* ---- Cartes d'articles ---- */
+.tm-post {
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px 20px 24px;
+    margin-bottom: 30px;
     color: var(--text-main);
+    transition: transform var(--transition), box-shadow var(--transition);
 }
-
-[data-theme="dark"] p,
-[data-theme="dark"] address,
-[data-theme="dark"] figcaption,
-[data-theme="dark"] .media-body {
-    color: var(--text-main);
+.tm-post:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
 }
+.tm-post .tm-post-title { color: var(--navy); }
+[data-theme="dark"] .tm-post .tm-post-title,
+[data-theme="dark"] .tm-post-full .tm-post-title { color: #c9c4ff; }
 
-[data-theme="dark"] .alert-success {
-    background-color: #1e3a2a;
-    border-color: #2e5a40;
-    color: #b8f0cf;
-}
-
-/* ---- Images d'articles : ratio constant, jamais deformees ---- */
+/* ---- Images : ratio constant, jamais deformees ---- */
 .img-fluid-post,
 .tm-post img,
 .tm-post-sidebar figure img {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 10px;
 }
 
-/* ---- Avatars de l'equipe : cercle parfait, jamais ecrases ---- */
+/* ---- Avatars de l'equipe : cercle parfait ---- */
 .team-avatar {
-    width: 120px !important;
-    height: 120px !important;
+    width: 110px !important;
+    height: 110px !important;
     object-fit: cover;
     object-position: top center;
+    border: 3px solid var(--accent-soft);
 }
 
-/* ---- Micro-interactions : survol des articles ---- */
-.tm-post {
-    transition: transform var(--transition), box-shadow var(--transition);
-    border-radius: 8px;
+/* ---- Texte secondaire ---- */
+[data-theme="dark"] p,
+[data-theme="dark"] address,
+[data-theme="dark"] figcaption,
+[data-theme="dark"] .media-body,
+[data-theme="dark"] .tm-comment p { color: var(--text-main); }
+.tm-post p, .tm-post-full p { color: var(--text-muted); }
+[data-theme="dark"] .tm-post p, [data-theme="dark"] .tm-post-full p { color: var(--text-muted); }
+
+/* ---- Boutons arrondis et modernes ---- */
+.tm-btn, .btn, input[type="submit"] {
+    border-radius: 999px !important;
+    font-weight: 500;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
 }
-.tm-post:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+.tm-btn-primary, input[type="submit"].tm-btn-primary {
+    background-color: var(--accent) !important;
+    border: none;
+}
+.tm-btn:hover, .btn:hover, input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 153, 153, 0.35);
+}
+
+/* ---- "En savoir plus" en lien-bouton discret ---- */
+.tm-post > a[href]:not(.tm-post-link) {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 6px;
+}
+.tm-post > a[href]:not(.tm-post-link):hover { color: var(--accent-soft); }
+
+/* ---- Barre de recherche moderne ---- */
+.tm-search-input {
+    border-radius: 999px !important;
+    border: 1px solid #e2e4ea !important;
+    padding-left: 18px !important;
+    box-shadow: var(--shadow);
+}
+[data-theme="dark"] .tm-search-input {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main);
+    border-color: #393455 !important;
+}
+.tm-search-button { border-radius: 999px !important; }
+
+/* ---- Navigation laterale : survol doux ---- */
+.tm-nav-link { transition: color var(--transition), padding-left var(--transition); }
+.tm-nav-link:hover { padding-left: 6px; color: var(--accent-soft) !important; }
+
+/* ---- Pagination moderne ---- */
+.pagination .page-link {
+    border-radius: 8px !important;
+    margin: 0 4px;
+    border: none;
+}
+
+/* ---- Cartes de l'equipe (page A propos) ---- */
+.tm-person {
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+.tm-person:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+/* ---- Commentaires ---- */
+.tm-comment {
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px;
+}
+
+/* ---- Messages de confirmation ---- */
+.alert-success {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: var(--shadow);
+}
+[data-theme="dark"] .alert-success {
+    background-color: #1e3a2a;
+    color: #b8f0cf;
 }
 
 /* ---- Bouton de bascule clair / sombre ---- */
@@ -80,15 +175,13 @@
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: #fff;
-    border-radius: 20px;
-    padding: 6px 14px;
+    border-radius: 999px;
+    padding: 6px 16px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background var(--transition);
-    margin: 0 auto 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background var(--transition), border-color var(--transition);
+    margin: 8px auto 1rem;
     display: block;
 }
-.theme-toggle:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-}
+.theme-toggle:hover { background: var(--accent); border-color: var(--accent); }
