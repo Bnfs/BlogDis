@@ -36,8 +36,4 @@ Le site est ensuite accessible sur : http://127.0.0.1:8000/
 
 Interface admin : http://127.0.0.1:8000/admin/
 
-| Username | Mot de passe |
-|----------|--------------|
-| `mkgm`   | `Admin1234!` |
-
-> Ces identifiants sont partagés dans la base de données fournie (`db.sqlite3`).
+> Les identifiants de connexion sont fournis séparément (en privé).
