@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import ListView
+from django.contrib import messages
 from .forms import ContactRegistration,CommentsRegistration
 from .models import Post,Comment,Contact,Category
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
@@ -75,7 +76,8 @@ def contact(request):
             msg=cm.cleaned_data['message']
             person=Contact(nom=nm,email=eml,sujet=suj,message=msg)
             person.save()
-            person=ContactRegistration()
+            messages.success(request,"Merci ! Votre message a bien été envoyé.")
+            return redirect('contact')
     else:
         cm=ContactRegistration()
     return render(request,"Blog/contact.html",{'contact':cm})
@@ -100,6 +102,7 @@ def detail(request,slug:str):
             cmf.save(commit=False)
             cmf.instance.post=article
             cmf.save()
+            messages.success(request,"Merci ! Votre commentaire a bien été publié.")
             return redirect('detail',slug=article.slug)
     else:
         cmf=CommentsRegistration()

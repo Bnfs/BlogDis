@@ -73,7 +73,7 @@ https://templatemo.com/tm-553-xtra-blog
                 
             </div>
             <p class="tm-mb-80 pr-5 text-white" style="text-align: justify;">
-                Amaba Discovery Zone est une communauté qui propose des sujets sur l'actualité, la technologie, et sur divers expériences (jeux vidéos, cuisines).
+                Amaba Discovery Zone est une communauté qui propose des sujets sur l'actualité, la technologie, et sur diverses expériences (jeux vidéo, cuisine).
             </p>
         </div>
     </header>
@@ -90,8 +90,17 @@ https://templatemo.com/tm-553-xtra-blog
                     </form>
                 </div>                
             </div>
+             {% if messages %}
+             <div class="row tm-row">
+                 <div class="col-12">
+                     {% for message in messages %}
+                     <div class="alert alert-success text-center" role="alert">{{ message }}</div>
+                     {% endfor %}
+                 </div>
+             </div>
+             {% endif %}
              {% block global %}
-             {% endblock global %}      
+             {% endblock global %}
             <div class="row tm-row">
                 
                 {% block content %}

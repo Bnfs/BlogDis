@@ -14,7 +14,7 @@
         <div class="tm-post-full">                    
             <div class="mb-4">
                 <h2 class="pt-2 tm-color-primary tm-post-title">{{post_title}}</h2>
-                <p class="tm-mb-40">⏲️Publiez le: {{post_date}} | Publiez Par: {{post_author}}</p>
+                <p class="tm-mb-40">⏲️ Publié le : {{post_date}} | Publié par : {{post_author}}</p>
                 <p class="tm-mb-40">
                     <button class="btn btn-dark" onclick="window.print()"><i class="fas fa-print"></i></button>
                     <button class="btn btn-secondary" id="par1"><i class="fas fa-share-alt"></i></button>
@@ -33,7 +33,7 @@
 
             <!-- Comments -->
             <div>
-                <h2 class="tm-color-primary tm-post-title">#{{cm_list|length}}# Commentaires</h2>
+                <h2 class="tm-color-primary tm-post-title">{{cm_list|length}} Commentaire{{ cm_list|length|pluralize }}</h2>
                 <hr class="tm-hr-primary tm-mb-45">
                 {% for i in cm_list %}
                 <div class="tm-comment tm-mb-45">
@@ -65,7 +65,7 @@
                     {{ comments.as_p }}
                     
                     <div class="text-right">
-                        <button class="tm-btn tm-btn-primary tm-btn-small" type="submit">Envoyez</button>                        
+                        <button class="tm-btn tm-btn-primary tm-btn-small" type="submit">Envoyer</button>
                     </div>                                
                 </form>                          
             </div>

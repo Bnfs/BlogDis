@@ -22,7 +22,7 @@ Recherche
         </div>
         <hr>
         <div class="d-flex justify-content-between">
-            <span>36 comments</span>
+            <span>{{ article.comments.count }} commentaire{{ article.comments.count|pluralize }}</span>
             <span>{{article.auteur}}</span>
         </div>
         <a href="{% url 'detail' article.slug %}">En savoir plus!</a>
@@ -30,7 +30,7 @@ Recherche
 
     {% endfor %}
 {% else %}
-    <h1>Aucune recherche ne correspond à ce titre !!</h1>
-    <p>Veuillez reéssayé s'il vous plait !!</p>
+    <h1>Aucun résultat ne correspond à ce titre !</h1>
+    <p>Veuillez réessayer s'il vous plaît.</p>
 {% endif %}
 {% endblock %}
