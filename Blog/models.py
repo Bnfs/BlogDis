@@ -34,6 +34,9 @@ class Post(models.Model):
     objects=models.Manager()
     published=PublishManager()
     
+    def nombre_commentaires(self):
+        return self.comments.filter(actif=True).count()
+
     def __str__(self):
         return self.titre +' '+ str(self.auteur)
     #On rajoute une classe meta por préciser qu'on classe les articles par ordre d'ajout
@@ -50,6 +53,7 @@ class Comment(models.Model):
     commentaire=models.TextField()
     date_creation=models.DateField(auto_now_add=True)
     date_modify=models.DateField(auto_now=True)
+    actif=models.BooleanField(default=False)
 
     def __str__(self):
         return self.post.titre

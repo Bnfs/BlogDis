@@ -22,7 +22,7 @@ Recherche
         </div>
         <hr>
         <div class="d-flex justify-content-between">
-            <span>{{ article.comments.count }} commentaire{{ article.comments.count|pluralize }}</span>
+            <span>{{ article.nombre_commentaires }} commentaire{{ article.nombre_commentaires|pluralize }}</span>
             <span>{{article.auteur}}</span>
         </div>
         <a href="{% url 'detail' article.slug %}">En savoir plus!</a>

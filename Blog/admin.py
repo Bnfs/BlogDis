@@ -13,7 +13,14 @@ class PostAdmin(admin.ModelAdmin):
             
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display=('post','nom','email','commentaire','date_creation','date_modify')
+    list_display=('post','nom','email','commentaire','date_creation','actif')
+    list_filter=('actif','date_creation')
+    search_fields=('nom','email','commentaire')
+    actions=['approuver_commentaires']
+
+    @admin.action(description="Approuver les commentaires sélectionnés")
+    def approuver_commentaires(self,request,queryset):
+        queryset.update(actif=True)
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):

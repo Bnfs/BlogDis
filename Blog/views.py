@@ -95,14 +95,17 @@ def detail(request,slug:str):
     except EmptyPage:
         postglo=paginator.page(paginator.num_pages)
     article=get_object_or_404(Post,slug=slug)
-    commentaire=article.comments.all()
+    commentaire=article.comments.filter(actif=True)
     if request.method=='POST':
         cmf=CommentsRegistration(request.POST)
         if cmf.is_valid():
+            # Anti-spam : si le champ piege est rempli, c'est un robot -> on ignore
+            if cmf.cleaned_data.get('website'):
+                return redirect('detail',slug=article.slug)
             cmf.save(commit=False)
             cmf.instance.post=article
             cmf.save()
-            messages.success(request,"Merci ! Votre commentaire a bien été publié.")
+            messages.success(request,"Merci ! Votre commentaire sera publié après validation.")
             return redirect('detail',slug=article.slug)
     else:
         cmf=CommentsRegistration()
